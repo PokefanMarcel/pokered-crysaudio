@@ -240,7 +240,7 @@ PrintSafariZoneSteps::
 	cp 10
 	jr nc, .tenOrMore
 	hlcoord 5, 3
-	ld a, " "
+	ld a, ' '
 	ld [hl], a
 .tenOrMore
 	hlcoord 6, 3
@@ -403,7 +403,7 @@ CheckForBoulderCollisionWithSprites:
 	ld a, [hli]
 	ld b, a
 	ldh a, [hPlayerFacing]
-	assert BIT_FACING_DOWN == 0
+	ASSERT BIT_FACING_DOWN == 0
 	rrca
 	jr c, .pushingDown
 ; pushing up

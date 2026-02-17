@@ -34,7 +34,7 @@ DEF START_MONEY EQU $3000
 
 	ld hl, wObtainedBadges
 	ld [hli], a
-
+	ASSERT wObtainedBadges + 1 == wUnusedObtainedBadges
 	ld [hl], a
 
 	ld hl, wPlayerCoins
@@ -45,7 +45,7 @@ DEF START_MONEY EQU $3000
 	ld bc, wGameProgressFlagsEnd - wGameProgressFlags
 	call FillMemory ; clear all game progress flags
 
-	jp InitializeMissableObjectsFlags
+	jp InitializeToggleableObjectsFlags
 
 InitializeEmptyList:
 	xor a ; count

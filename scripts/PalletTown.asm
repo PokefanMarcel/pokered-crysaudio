@@ -34,7 +34,7 @@ PalletTownDefaultScript:
 	ld c, a
 	ld a, MUSIC_MEET_PROF_OAK ; "oak appears" music
 	call PlayMusic
-	ld a, SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_SELECT | PAD_START | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	SetEvent EVENT_OAK_APPEARED_IN_PALLET
 
@@ -49,10 +49,10 @@ PalletTownOakHeyWaitScript:
 	ld a, TEXT_PALLETTOWN_OAK
 	ldh [hTextID], a
 	call DisplayTextID
-	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_BUTTONS | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
-	ld a, HS_PALLET_TOWN_OAK
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_PALLET_TOWN_OAK
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 
 	; trigger the next script
@@ -82,7 +82,7 @@ PalletTownOakWalksToPlayerScript:
 	ld a, PALLETTOWN_OAK
 	ldh [hSpriteIndex], a
 	call MoveSprite
-	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_BUTTONS | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 
 	; trigger the next script
@@ -98,13 +98,13 @@ PalletTownOakNotSafeComeWithMeScript:
 	ld [wSpritePlayerStateData1FacingDirection], a
 	ld a, TRUE
 	ld [wOakWalkedToPlayer], a
-	ld a, SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_SELECT | PAD_START | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, TEXT_PALLETTOWN_OAK
 	ldh [hTextID], a
 	call DisplayTextID
 ; set up movement script that causes the player to follow Oak to his lab
-	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_BUTTONS | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, PALLETTOWN_OAK
 	ld [wSpriteIndex], a
@@ -136,11 +136,11 @@ PalletTownDaisyScript:
 	CheckBothEventsSet EVENT_GOT_TOWN_MAP, EVENT_ENTERED_BLUES_HOUSE, 1
 	jr nz, .next
 	SetEvent EVENT_DAISY_WALKING
-	ld a, HS_DAISY_SITTING
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_DAISY_SITTING
+	ld [wToggleableObjectIndex], a
 	predef HideObject
-	ld a, HS_DAISY_WALKING
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_DAISY_WALKING
+	ld [wToggleableObjectIndex], a
 	predef_jump ShowObject
 .next
 	CheckEvent EVENT_GOT_POKEBALLS_FROM_OAK

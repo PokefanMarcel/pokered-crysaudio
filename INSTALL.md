@@ -1,6 +1,6 @@
 # Instructions
 
-These instructions explain how to set up the tools required to build **pokered**, including [**rgbds**](https://github.com/gbdev/rgbds), which assembles the source files into a ROM.
+These instructions explain how to set up the tools required to build **pokered-crysaudio**, including [**rgbds**](https://github.com/gbdev/rgbds), which assembles the source files into a ROM.
 
 If you run into trouble, ask for help on IRC or Discord (see [README.md](README.md)).
 
@@ -15,9 +15,9 @@ Update WSL's software before continuing. If you chose Debian, Ubuntu, or another
 apt-get update && apt-get upgrade
 ```
 
-WSL has its own file system that's not accessible from Windows, but Windows files *are* accessible from WSL. So you're going to want to install pokered within Windows. You'll have to change the **current working directory** every time you open WSL.
+WSL has its own file system that's not accessible from Windows, but Windows files *are* accessible from WSL. So you're going to want to install pokered-crysaudio within Windows. You'll have to change the **current working directory** every time you open WSL.
 
-For example, if you want to store pokered in **C:\Users\\*\<user>*\Desktop**, enter this command:
+For example, if you want to store pokered-crysaudio in **C:\Users\\*\<user>*\Desktop**, enter this command:
 
 ```bash
 cd /mnt/c/Users/<user>/Desktop
@@ -42,15 +42,15 @@ Run setup and leave the default settings. At the "**Select Packages**" step, cho
 
 Double click on the text that says "**Skip**" next to each package to select the most recent version to install.
 
-Then follow the [**rgbds** install instructions](https://rgbds.gbdev.io/install#pre-built) for Windows with Cygwin to install **rgbds 0.7.0**.
+Then follow the [**rgbds** install instructions](https://rgbds.gbdev.io/install#pre-built) for Windows with Cygwin to install **rgbds 1.0.1**.
 
-**Note:** If you already have an installed rgbds older than 0.7.0, you will need to update to 0.7.0. Ignore this if you have never installed rgbds before. If a version newer than 0.7.0 does not work, try downloading 0.7.0.
+**Note:** If you already have an installed rgbds older than 1.0.0, you will need to update to 1.0.1. Ignore this if you have never installed rgbds before. If a version newer than 1.0.1 does not work, try downloading 1.0.1.
 
 Now open the **Cygwin terminal** and enter the following commands.
 
-Cygwin has its own file system that's within Windows, at **C:\cygwin64\home\\*\<user>***. If you don't want to store pokered there, you'll have to change the **current working directory** every time you open Cygwin.
+Cygwin has its own file system that's within Windows, at **C:\cygwin64\home\\*\<user>***. If you don't want to store pokered-crysaudio there, you'll have to change the **current working directory** every time you open Cygwin.
 
-For example, if you want to store pokered in **C:\Users\\*\<user>*\Desktop**:
+For example, if you want to store pokered-crysaudio in **C:\Users\\*\<user>*\Desktop**:
 
 ```bash
 cd /cygdrive/c/Users/<user>/Desktop
@@ -58,7 +58,7 @@ cd /cygdrive/c/Users/<user>/Desktop
 
 (The Windows `C:\` drive is called `/cygdrive/c/` in Cygwin. Replace *\<user>* in the example path with your username.)
 
-Now you're ready to [build **pokered**](#build-pokered).
+Now you're ready to [build **pokered-crysaudio**](#build-pokered-crysaudio).
 
 
 ## macOS
@@ -67,9 +67,9 @@ Install [**Homebrew**](https://brew.sh/). Follow the official instructions.
 
 Open **Terminal** and prepare to enter commands.
 
-Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#pre-built) for macOS to install **rgbds 0.7.0**.
+Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#pre-built) for macOS to install **rgbds 1.0.1**.
 
-Now you're ready to [build **pokered**](#build-pokered).
+Now you're ready to [build **pokered-crysaudio**](#build-pokered-crysaudio).
 
 
 ## Linux
@@ -78,49 +78,49 @@ Open **Terminal** and enter the following commands, depending on which distro yo
 
 ### Debian or Ubuntu
 
-To install the software required for **pokered**:
+To install the software required for **pokered-crysaudio**:
 
 ```bash
 sudo apt-get install make gcc git
 ```
 
-Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 0.7.0** from source.
+Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 1.0.1** from source.
 
 ### OpenSUSE
 
-To install the software required for **pokered**:
+To install the software required for **pokered-crysaudio**:
 
 ```bash
 sudo zypper install make gcc git
 ```
 
-Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 0.7.0** from source.
+Then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 1.0.1** from source.
 
 ### Arch Linux
 
-To install the software required for **pokered**:
+To install the software required for **pokered-crysaudio**:
 
 ```bash
 sudo pacman -S make gcc git rgbds
 ```
 
-If you want to compile and install **rgbds** yourself instead, then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 0.7.0** from source.
+If you want to compile and install **rgbds** yourself instead, then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 1.0.1** from source.
 
 ### Termux
 
-To install the software required for **pokered**:
+To install the software required for **pokered-crysaudio**:
 
 ```bash
-sudo apt install make clang git sed
+pkg install make clang git sed
 ```
 
 To install **rgbds**:
 
 ```bash
-sudo apt install rgbds
+pkg install rgbds
 ```
 
-If you want to compile and install **rgbds** yourself instead, then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 0.7.0** from source.
+If you want to compile and install **rgbds** yourself instead, then follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 1.0.1** from source.
 
 ### Other distros
 
@@ -131,18 +131,18 @@ If your distro is not listed here, try to find the required software in its repo
 - `git`
 - `rgbds`
 
-If `rgbds` is not available, you'll need to follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 0.7.0** from source.
+If `rgbds` is not available, you'll need to follow the [**rgbds** instructions](https://rgbds.gbdev.io/install#building-from-source) to build **rgbds 1.0.1** from source.
 
-Now you're ready to [build **pokered**](#build-pokered).
+Now you're ready to [build **pokered-crysaudio**](#build-pokered-crysaudio).
 
 
-## Build pokered
+## Build pokered-crysaudio
 
-To download the **pokered** source files:
+To download the **pokered-crysaudio** source files:
 
 ```bash
-git clone https://github.com/pret/pokered
-cd pokered
+git clone https://github.com/dannye/pokered-crysaudio
+cd pokered-crysaudio
 ```
 
 To build **pokered.gbc** and **pokeblue.gbc**:
@@ -153,8 +153,8 @@ make
 
 ### Build with a local rgbds version
 
-If you have different projects that require different versions of `rgbds`, it might not be convenient to install rgbds 0.7.0 globally. Instead, you can put its files in a directory within pokered, such as `pokered/rgbds-0.7.0/`. Then specify it when you run `make`:
+If you have different projects that require different versions of `rgbds`, it might not be convenient to install rgbds 1.0.1 globally. Instead, you can put its files in a directory within pokered-crysaudio, such as `pokered-crysaudio/rgbds-1.0.1/`. Then specify it when you run `make`:
 
 ```bash
-make RGBDS=rgbds-0.7.0/
+make RGBDS=rgbds-1.0.1/
 ```

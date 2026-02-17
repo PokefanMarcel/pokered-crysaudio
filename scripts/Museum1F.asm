@@ -115,7 +115,7 @@ Museum1FScientist1Text:
 	call PrintText
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
-	ld a, D_DOWN
+	ld a, PAD_DOWN
 	ld [wSimulatedJoypadStatesEnd], a
 	call StartSimulatingJoypadStates
 	call UpdateSprites
@@ -197,8 +197,8 @@ Museum1FScientist2Text:
 	call GiveItem
 	jr nc, .bag_full
 	SetEvent EVENT_GOT_OLD_AMBER
-	ld a, HS_OLD_AMBER
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_OLD_AMBER
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	ld hl, .ReceivedOldAmberText
 	jr .done

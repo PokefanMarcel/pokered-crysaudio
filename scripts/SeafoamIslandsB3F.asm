@@ -12,23 +12,23 @@ SeafoamIslandsB3F_Script:
 	cp $1
 	jr nz, .boulder2FellDownHole
 	SetEventReuseHL EVENT_SEAFOAM4_BOULDER1_DOWN_HOLE
-	ld a, HS_SEAFOAM_ISLANDS_B3F_BOULDER_1
+	ld a, TOGGLE_SEAFOAM_ISLANDS_B3F_BOULDER_1
 	ld [wObjectToHide], a
-	ld a, HS_SEAFOAM_ISLANDS_B4F_BOULDER_1
+	ld a, TOGGLE_SEAFOAM_ISLANDS_B4F_BOULDER_1
 	ld [wObjectToShow], a
 	jr .hideAndShowBoulderObjects
 .boulder2FellDownHole
 	SetEventAfterBranchReuseHL EVENT_SEAFOAM4_BOULDER2_DOWN_HOLE, EVENT_SEAFOAM4_BOULDER1_DOWN_HOLE
-	ld a, HS_SEAFOAM_ISLANDS_B3F_BOULDER_2
+	ld a, TOGGLE_SEAFOAM_ISLANDS_B3F_BOULDER_2
 	ld [wObjectToHide], a
-	ld a, HS_SEAFOAM_ISLANDS_B4F_BOULDER_2
+	ld a, TOGGLE_SEAFOAM_ISLANDS_B4F_BOULDER_2
 	ld [wObjectToShow], a
 .hideAndShowBoulderObjects
 	ld a, [wObjectToHide]
-	ld [wMissableObjectIndex], a
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	ld a, [wObjectToShow]
-	ld [wMissableObjectIndex], a
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	jr .runCurrentMapScript
 .noBoulderWasPushed
@@ -79,9 +79,9 @@ SeafoamIslandsB3FDefaultScript:
 	ret
 
 RLEList_ForcedSurfingStrongCurrentNearSteps:
-	db D_DOWN, 6
-	db D_RIGHT, 5
-	db D_DOWN, 3
+	db PAD_DOWN, 6
+	db PAD_RIGHT, 5
+	db PAD_DOWN, 3
 	db -1 ; end
 
 SeafoamIslandsB3FObjectMoving1Script:
@@ -122,16 +122,16 @@ SeafoamIslandsB3FMoveObjectScript:
 	ret
 
 .RLEList_StrongCurrentNearRightBoulder:
-	db D_DOWN, 6
-	db D_RIGHT, 2
-	db D_DOWN, 4
-	db D_LEFT, 1
+	db PAD_DOWN, 6
+	db PAD_RIGHT, 2
+	db PAD_DOWN, 4
+	db PAD_LEFT, 1
 	db -1 ; end
 
 .RLEList_StrongCurrentNearLeftBoulder:
-	db D_DOWN, 6
-	db D_RIGHT, 2
-	db D_DOWN, 4
+	db PAD_DOWN, 6
+	db PAD_RIGHT, 2
+	db PAD_DOWN, 4
 	db -1 ; end
 
 SeafoamIslandsB3FObjectMoving2Script:

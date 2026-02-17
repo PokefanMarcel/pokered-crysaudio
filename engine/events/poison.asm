@@ -1,6 +1,6 @@
 ApplyOutOfBattlePoisonDamage:
 	ld a, [wStatusFlags5]
-	assert BIT_SCRIPTED_MOVEMENT_STATE == 7
+	ASSERT BIT_SCRIPTED_MOVEMENT_STATE == 7
 	add a ; overflows scripted movement state bit into carry flag
 	jp c, .noBlackOut ; no black out if joypad states are being simulated
 	ld a, [wPartyCount]
@@ -15,7 +15,7 @@ ApplyOutOfBattlePoisonDamage:
 	ld de, wPartySpecies
 .applyDamageLoop
 	ld a, [hl]
-	and (1 << PSN)
+	and 1 << PSN
 	jr z, .nextMon2 ; not poisoned
 	dec hl
 	dec hl
@@ -65,7 +65,7 @@ ApplyOutOfBattlePoisonDamage:
 	ld a, [de]
 	inc a
 	jr z, .applyDamageLoopDone
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	add hl, bc
 	push hl
 	ld hl, wWhichPokemon
@@ -79,10 +79,10 @@ ApplyOutOfBattlePoisonDamage:
 	ld e, 0
 .countPoisonedLoop
 	ld a, [hl]
-	and (1 << PSN)
+	and 1 << PSN
 	or e
 	ld e, a
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	add hl, bc
 	dec d
 	jr nz, .countPoisonedLoop
@@ -90,7 +90,7 @@ ApplyOutOfBattlePoisonDamage:
 	and a ; are any party members poisoned?
 	jr z, .skipPoisonEffectAndSound
 	ld b, $2
-	predef ChangeBGPalColor0_4Frames ; change BG white to dark grey for 4 frames
+	predef ChangeBGPalColor0_4Frames ; change BG white to dark gray for 4 frames
 	ld a, SFX_POISONED
 	call PlaySound
 .skipPoisonEffectAndSound

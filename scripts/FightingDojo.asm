@@ -68,7 +68,7 @@ FightingDojoKarateMasterPostBattleScript:
 	ldh [hSpriteFacingDirection], a
 	call SetSpriteFacingDirectionAndDelay
 .already_facing
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	SetEventRange EVENT_BEAT_KARATE_MASTER, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
 	ld a, TEXT_FIGHTINGDOJO_KARATE_MASTER_I_WILL_GIVE_YOU_A_POKEMON
@@ -246,8 +246,8 @@ FightingDojoHitmonleePokeBallText:
 	jr nc, .done
 
 	; once Poké Ball is taken, hide sprite
-	ld a, HS_FIGHTING_DOJO_GIFT_1
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_FIGHTING_DOJO_GIFT_1
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	SetEvents EVENT_GOT_HITMONLEE, EVENT_DEFEATED_FIGHTING_DOJO
 .done
@@ -281,8 +281,8 @@ FightingDojoHitmonchanPokeBallText:
 	SetEvents EVENT_GOT_HITMONCHAN, EVENT_DEFEATED_FIGHTING_DOJO
 
 	; once Poké Ball is taken, hide sprite
-	ld a, HS_FIGHTING_DOJO_GIFT_2
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_FIGHTING_DOJO_GIFT_2
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 .done
 	jp TextScriptEnd

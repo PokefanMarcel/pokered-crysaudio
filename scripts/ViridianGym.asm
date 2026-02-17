@@ -45,7 +45,7 @@ ViridianGymDefaultScript:
 	set BIT_SPINNING, [hl]
 	ld a, SFX_ARROW_TILES
 	call PlaySound
-	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_BUTTONS | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, SCRIPT_VIRIDIANGYM_PLAYER_SPINNING
 	ld [wCurMapScript], a
@@ -67,51 +67,51 @@ ViridianGymArrowTilePlayerMovement:
 	db -1 ; end
 
 ViridianGymArrowMovement1:
-	db D_UP, 9
+	db PAD_UP, 9
 	db -1 ; end
 
 ViridianGymArrowMovement2:
-	db D_LEFT, 8
+	db PAD_LEFT, 8
 	db -1 ; end
 
 ViridianGymArrowMovement3:
-	db D_DOWN, 9
+	db PAD_DOWN, 9
 	db -1 ; end
 
 ViridianGymArrowMovement4:
-	db D_RIGHT, 6
+	db PAD_RIGHT, 6
 	db -1 ; end
 
 ViridianGymArrowMovement5:
-	db D_DOWN, 2
+	db PAD_DOWN, 2
 	db -1 ; end
 
 ViridianGymArrowMovement6:
-	db D_DOWN, 7
+	db PAD_DOWN, 7
 	db -1 ; end
 
 ViridianGymArrowMovement7:
-	db D_RIGHT, 8
+	db PAD_RIGHT, 8
 	db -1 ; end
 
 ViridianGymArrowMovement8:
-	db D_RIGHT, 9
+	db PAD_RIGHT, 9
 	db -1 ; end
 
 ViridianGymArrowMovement9:
-	db D_UP, 8
+	db PAD_UP, 8
 	db -1 ; end
 
 ViridianGymArrowMovement10:
-	db D_UP, 6
+	db PAD_UP, 6
 	db -1 ; end
 
 ViridianGymArrowMovement11:
-	db D_LEFT, 6
+	db PAD_LEFT, 6
 	db -1 ; end
 
 ViridianGymArrowMovement12:
-	db D_LEFT, 12
+	db PAD_LEFT, 12
 	db -1 ; end
 
 ViridianGymPlayerSpinningScript:
@@ -132,7 +132,7 @@ ViridianGymGiovanniPostBattle:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, ViridianGymResetScripts
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 ; fallthrough
 ViridianGymReceiveTM27:
@@ -161,8 +161,8 @@ ViridianGymReceiveTM27:
 	; deactivate gym trainers
 	SetEventRange EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0, EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7
 
-	ld a, HS_ROUTE_22_RIVAL_2
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_ROUTE_22_RIVAL_2
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	SetEvents EVENT_2ND_ROUTE22_RIVAL_BATTLE, EVENT_ROUTE22_RIVAL_WANTS_BATTLE
 	jp ViridianGymResetScripts
@@ -219,8 +219,8 @@ ViridianGymGiovanniText:
 	ld hl, .PostBattleAdviceText
 	call PrintText
 	call GBFadeOutToBlack
-	ld a, HS_VIRIDIAN_GYM_GIOVANNI
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_VIRIDIAN_GYM_GIOVANNI
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	call UpdateSprites
 	call Delay3

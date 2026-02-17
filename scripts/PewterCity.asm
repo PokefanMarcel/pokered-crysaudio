@@ -31,7 +31,7 @@ ENDC
 	ld hl, PewterCityPlayerLeavingEastCoords
 	call ArePlayerCoordsInArray
 	ret nc
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, TEXT_PEWTERCITY_YOUNGSTER
 	ldh [hTextID], a
@@ -92,8 +92,8 @@ PewterCityHideSuperNerd1Script:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	ret nz
-	ld a, HS_MUSEUM_GUY
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_MUSEUM_GUY
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	ld a, SCRIPT_PEWTERCITY_RESET_SUPER_NERD1
 	ld [wPewterCityCurScript], a
@@ -103,8 +103,8 @@ PewterCityResetSuperNerd1Script:
 	ld a, PEWTERCITY_SUPER_NERD1
 	ld [wSpriteIndex], a
 	call SetSpritePosition2
-	ld a, HS_MUSEUM_GUY
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_MUSEUM_GUY
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	xor a
 	ld [wJoyIgnore], a
@@ -132,7 +132,7 @@ PewterCityYoungsterShowsPlayerGymScript:
 	call DisplayTextID
 	ld a, $3c
 	ldh [hSpriteScreenYCoord], a
-	ld a, $40
+	ld a, $40 ; BUG: should load $50, using $40 causes sprite misalignment
 	ldh [hSpriteScreenXCoord], a
 	ld a, 22
 	ldh [hSpriteMapYCoord], a
@@ -161,8 +161,8 @@ PewterCityHideYoungsterScript:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	ret nz
-	ld a, HS_GYM_GUY
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_GYM_GUY
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	ld a, SCRIPT_PEWTERCITY_RESET_YOUNGSTER
 	ld [wPewterCityCurScript], a
@@ -172,8 +172,8 @@ PewterCityResetYoungsterScript:
 	ld a, PEWTERCITY_YOUNGSTER
 	ld [wSpriteIndex], a
 	call SetSpritePosition2
-	ld a, HS_GYM_GUY
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_GYM_GUY
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	xor a
 	ld [wJoyIgnore], a

@@ -20,7 +20,7 @@ GameCornerSelectLuckySlotMachine:
 	srl a
 	srl a
 	srl a
-	ld [wLuckySlotHiddenObjectIndex], a
+	ld [wLuckySlotHiddenEventIndex], a
 	ret
 
 GameCornerSetRocketHideoutDoorTile:
@@ -55,7 +55,7 @@ GameCornerRocketBattleScript:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, GameCornerReenterMapAfterPlayerLoss
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, TEXT_GAMECORNER_ROCKET_AFTER_BATTLE
 	ldh [hTextID], a
@@ -107,8 +107,8 @@ GameCornerRocketExitScript:
 	ret nz
 	xor a
 	ld [wJoyIgnore], a
-	ld a, HS_GAME_CORNER_ROCKET
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_GAME_CORNER_ROCKET
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	ld hl, wCurrentMapScriptFlags
 	set BIT_CUR_MAP_LOADED_1, [hl]
@@ -511,7 +511,7 @@ GameCornerDrawCoinBox:
 	call PlaceString
 	hlcoord 15, 5
 	ld de, wPlayerCoins
-	ld c, $82
+	ld c, 2 | LEADING_ZEROES
 	call PrintBCDNumber
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]

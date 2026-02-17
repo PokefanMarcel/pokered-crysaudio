@@ -33,8 +33,8 @@ SSAnne2FDefaultScript:
 	call PlayMusic
 	ld a, [wCoordIndex]
 	ldh [hSavedCoordIndex], a
-	ld a, HS_SS_ANNE_2F_RIVAL
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_SS_ANNE_2F_RIVAL
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	call Delay3
 	ld a, SSANNE2F_RIVAL
@@ -42,7 +42,7 @@ SSAnne2FDefaultScript:
 	call SetSpriteMovementBytesToFF
 	xor a
 	ldh [hJoyHeld], a
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ldh a, [hSavedCoordIndex]
 	cp $2
@@ -126,7 +126,7 @@ SSAnne2FRivalAfterBattleScript:
 	cp $ff
 	jp z, SSAnne2FResetScripts
 	call SSAnne2FSetFacingDirectionScript
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, TEXT_SSANNE2F_RIVAL_CUT_MASTER
 	ldh [hTextID], a
@@ -169,8 +169,8 @@ SSAnne2FRivalExitScript:
 	ret nz
 	xor a
 	ld [wJoyIgnore], a
-	ld a, HS_SS_ANNE_2F_RIVAL
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_SS_ANNE_2F_RIVAL
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	call PlayDefaultMusic
 	ld a, SCRIPT_SSANNE2F_NOOP

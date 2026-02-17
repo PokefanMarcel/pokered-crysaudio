@@ -49,18 +49,18 @@ RocketHideoutB4FBeatGiovanniScript:
 	cp $ff
 	jp z, RocketHideoutB4FSetDefaultScript
 	call UpdateSprites
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	SetEvent EVENT_BEAT_ROCKET_HIDEOUT_GIOVANNI
 	ld a, TEXT_ROCKETHIDEOUTB4F_GIOVANNI_HOPE_WE_MEET_AGAIN
 	ldh [hTextID], a
 	call DisplayTextID
 	call GBFadeOutToBlack
-	ld a, HS_ROCKET_HIDEOUT_B4F_GIOVANNI
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_ROCKET_HIDEOUT_B4F_GIOVANNI
+	ld [wToggleableObjectIndex], a
 	predef HideObject
-	ld a, HS_ROCKET_HIDEOUT_B4F_ITEM_4
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_ROCKET_HIDEOUT_B4F_ITEM_4
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 	call UpdateSprites
 	call GBFadeInFromBlack
@@ -89,11 +89,11 @@ RocketHideoutB4F_TextPointers:
 RocketHideout4TrainerHeaders:
 	def_trainers 2
 RocketHideout4TrainerHeader0:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_0, 0, RocketHideoutB4FGiovanniBattleText, RocketHideoutB4FGiovanniEndBattleText, RocketHideoutB4FGiovanniAfterBattleText
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_0, 0, RocketHideoutB4FRocket1BattleText, RocketHideoutB4FRocket1EndBattleText, RocketHideoutB4FRocket1AfterBattleText
 RocketHideout4TrainerHeader1:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_1, 0, RocketHideoutB4FRocket1BattleText, RocketHideoutB4FRocket1EndBattleText, RocketHideoutB4FRocket1AfterBattleText
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_1, 0, RocketHideoutB4FRocket2BattleText, RocketHideoutB4FRocket2EndBattleText, RocketHideoutB4FRocket2AfterBattleText
 RocketHideout4TrainerHeader2:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, 1, RocketHideoutB4FRocket2BattleText, RocketHideoutB4FRocket2EndBattleText, RocketHideoutB4FRocket2AfterBattleText
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, 1, RocketHideoutB4FRocket3BattleText, RocketHideoutB4FRocket3EndBattleText, RocketHideoutB4FRocket3AfterBattleText
 	db -1 ; end
 
 RocketHideoutB4FGiovanniText:
@@ -142,24 +142,6 @@ RocketHideoutB4FRocket1Text:
 	call TalkToTrainer
 	jp TextScriptEnd
 
-RocketHideoutB4FGiovanniBattleText:
-	text_far _RocketHideoutB4FGiovanniBattleText
-	text_end
-
-RocketHideoutB4FGiovanniEndBattleText:
-	text_far _RocketHideoutB4FGiovanniEndBattleText
-	text_end
-
-RocketHideoutB4FGiovanniAfterBattleText:
-	text_far _RocketHideoutB4FGiovanniAfterBattleText
-	text_end
-
-RocketHideoutB4FRocket2Text:
-	text_asm
-	ld hl, RocketHideout4TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
 RocketHideoutB4FRocket1BattleText:
 	text_far _RocketHideoutB4FRocket1BattleText
 	text_end
@@ -172,9 +154,9 @@ RocketHideoutB4FRocket1AfterBattleText:
 	text_far _RocketHideoutB4FRocket1AfterBattleText
 	text_end
 
-RocketHideoutB4FRocket3Text:
+RocketHideoutB4FRocket2Text:
 	text_asm
-	ld hl, RocketHideout4TrainerHeader2
+	ld hl, RocketHideout4TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
@@ -187,17 +169,35 @@ RocketHideoutB4FRocket2EndBattleText:
 	text_end
 
 RocketHideoutB4FRocket2AfterBattleText:
+	text_far _RocketHideoutB4FRocket2AfterBattleText
+	text_end
+
+RocketHideoutB4FRocket3Text:
+	text_asm
+	ld hl, RocketHideout4TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
+
+RocketHideoutB4FRocket3BattleText:
+	text_far _RocketHideoutB4FRocket3BattleText
+	text_end
+
+RocketHideoutB4FRocket3EndBattleText:
+	text_far _RocketHideoutB4FRocket3EndBattleText
+	text_end
+
+RocketHideoutB4FRocket3AfterBattleText:
 	text_asm
 	ld hl, .Text
 	call PrintText
 	CheckAndSetEvent EVENT_ROCKET_DROPPED_LIFT_KEY
 	jr nz, .done
-	ld a, HS_ROCKET_HIDEOUT_B4F_ITEM_5
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_ROCKET_HIDEOUT_B4F_ITEM_5
+	ld [wToggleableObjectIndex], a
 	predef ShowObject
 .done
 	jp TextScriptEnd
 
 .Text:
-	text_far _RocketHideoutB4FRocket2AfterBattleText
+	text_far _RocketHideoutB4FRocket3AfterBattleText
 	text_end

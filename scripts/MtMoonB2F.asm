@@ -132,7 +132,7 @@ MtMoonB2FSuperNerdTakesOtherFossilScript:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	ret nz
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
@@ -141,12 +141,12 @@ MtMoonB2FSuperNerdTakesOtherFossilScript:
 	call DisplayTextID
 	CheckEvent EVENT_GOT_DOME_FOSSIL
 	jr z, .got_dome_fossil
-	ld a, HS_MT_MOON_B2F_FOSSIL_2
+	ld a, TOGGLE_MT_MOON_B2F_FOSSIL_2
 	jr .continue
 .got_dome_fossil
-	ld a, HS_MT_MOON_B2F_FOSSIL_1
+	ld a, TOGGLE_MT_MOON_B2F_FOSSIL_1
 .continue
-	ld [wMissableObjectIndex], a
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	xor a
 	ld [wJoyIgnore], a
@@ -184,8 +184,7 @@ MtMoonB2FSuperNerdText:
 	text_asm
 	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
 	jr z, .beat_super_nerd
-	; CheckEitherEventSetReuseA EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
-	and (1 << (EVENT_GOT_DOME_FOSSIL % 8)) | (1 << (EVENT_GOT_HELIX_FOSSIL % 8))
+	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL, 1
 	jr nz, .got_a_fossil
 	ld hl, MtMoonB2fSuperNerdEachTakeOneText
 	call PrintText
@@ -251,8 +250,8 @@ MtMoonB2FDomeFossilText:
 	call GiveItem
 	jp nc, MtMoonB2FYouHaveNoRoomText
 	call MtMoonB2FReceivedFossilText
-	ld a, HS_MT_MOON_B2F_FOSSIL_1
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_MT_MOON_B2F_FOSSIL_1
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	SetEvent EVENT_GOT_DOME_FOSSIL
 	ld a, SCRIPT_MTMOONB2F_MOVE_SUPER_NERD
@@ -279,8 +278,8 @@ MtMoonB2FHelixFossilText:
 	call GiveItem
 	jp nc, MtMoonB2FYouHaveNoRoomText
 	call MtMoonB2FReceivedFossilText
-	ld a, HS_MT_MOON_B2F_FOSSIL_2
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_MT_MOON_B2F_FOSSIL_2
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	SetEvent EVENT_GOT_HELIX_FOSSIL
 	ld a, SCRIPT_MTMOONB2F_MOVE_SUPER_NERD
